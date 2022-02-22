@@ -1,0 +1,21 @@
+package com.williamhill.scoreboards.utils;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Objects;
+import java.util.stream.Stream;
+
+public class TestUtils {
+    public static String readFromFile(String filePath) throws URISyntaxException, IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines(Paths.get(Objects.requireNonNull(TestUtils.class.getClassLoader().getResource(filePath)).toURI()), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> contentBuilder.append(s).append("\n"));
+        }
+
+        return contentBuilder.substring(0, contentBuilder.lastIndexOf("\n"));
+    }
+}

@@ -1,0 +1,15 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div id="output">waiting for action</div>
+
+<script>
+(function getEvents() {
+    $.ajax({
+        url:"/events",
+        complete: function (response) {
+            $('#output').html(response.responseText);
+            setTimeout(getEvents, 1000);
+        }
+    });
+    return false;
+})();
+</script>
